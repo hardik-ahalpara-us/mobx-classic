@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { makeObservable, observable, computed } from "mobx";
+import { makeObservable, observable, computed, action } from "mobx";
 
 export class Todos {
   todos = [
@@ -10,11 +10,15 @@ export class Todos {
     makeObservable(this, {
       todos: observable,
       remainingTodos: computed,
+      addTodo: action,
     });
     this.value = value;
   }
   get remainingTodos() {
     return this.todos.filter((t) => !t.completed).length;
+  }
+  addTodo(text) {
+    this.todos.push({ id: "1234", text, completed: false });
   }
 
   toggleTodo = (index) => {
